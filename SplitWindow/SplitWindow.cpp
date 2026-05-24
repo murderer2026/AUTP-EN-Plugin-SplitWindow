@@ -146,29 +146,29 @@ void showPaneMenu(HWND hwndColony)
 
 	HMENU menu = ::CreatePopupMenu();
 
-	::AppendMenu(menu, MF_STRING, CommandID::SPLIT_MODE_NONE, _T("分割なし"));
-	::AppendMenu(menu, MF_STRING, CommandID::SPLIT_MODE_VERT, _T("垂直線で分割"));
-	::AppendMenu(menu, MF_STRING, CommandID::SPLIT_MODE_HORZ, _T("水平線で分割"));
+	::AppendMenu(menu, MF_STRING, CommandID::SPLIT_MODE_NONE, _T("No window inserted"));
+	::AppendMenu(menu, MF_STRING, CommandID::SPLIT_MODE_VERT, _T("Split Vertically"));
+	::AppendMenu(menu, MF_STRING, CommandID::SPLIT_MODE_HORZ, _T("Split Horizontally"));
 	::AppendMenu(menu, MF_SEPARATOR, -1, 0);
-	::AppendMenu(menu, MF_STRING, CommandID::ORIGIN_TOP_LEFT, _T("左上を原点にする"));
-	::AppendMenu(menu, MF_STRING, CommandID::ORIGIN_BOTTOM_RIGHT, _T("右下を原点にする"));
+	::AppendMenu(menu, MF_STRING, CommandID::ORIGIN_TOP_LEFT, _T("Set top-left as origin"));
+	::AppendMenu(menu, MF_STRING, CommandID::ORIGIN_BOTTOM_RIGHT, _T("Set bottom-right as origin"));
 	::AppendMenu(menu, MF_SEPARATOR, -1, 0);
-	::AppendMenu(menu, MF_STRING, CommandID::MOVE_TO_LEFT, _T("左に移動する"));
+	::AppendMenu(menu, MF_STRING, CommandID::MOVE_TO_LEFT, _T("Move left"));
 	if (ht == -1 || ht <= 0)
 		::EnableMenuItem(menu, CommandID::MOVE_TO_LEFT, MF_GRAYED | MF_DISABLED);
-	::AppendMenu(menu, MF_STRING, CommandID::MOVE_TO_RIGHT, _T("右に移動する"));
+	::AppendMenu(menu, MF_STRING, CommandID::MOVE_TO_RIGHT, _T("Move right"));
 	if (ht == -1 || ht >= c - 1)
 		::EnableMenuItem(menu, CommandID::MOVE_TO_RIGHT, MF_GRAYED | MF_DISABLED);
-	::AppendMenu(menu, MF_STRING, CommandID::IS_BORDER_LOCKED, _T("ボーダーをロック"));
+	::AppendMenu(menu, MF_STRING, CommandID::IS_BORDER_LOCKED, _T("Lock the border"));
 	if (pane->m_isBorderLocked)
 		::CheckMenuItem(menu, CommandID::IS_BORDER_LOCKED, MF_CHECKED);
 	::AppendMenu(menu, MF_SEPARATOR, -1, 0);
-	::AppendMenu(menu, MF_STRING, CommandID::RENAME_COLONY, _T("名前を変更"));
+	::AppendMenu(menu, MF_STRING, CommandID::RENAME_COLONY, _T("Change name"));
 	if (!colonyInShuttle && !explorerInShuttle)
 		::EnableMenuItem(menu, CommandID::RENAME_COLONY, MF_GRAYED | MF_DISABLED);
 
 	{
-		::AppendMenu(menu, MF_STRING | MF_MENUBARBREAK, CommandID::WINDOW, _T("ドッキングを解除"));
+		::AppendMenu(menu, MF_STRING | MF_MENUBARBREAK, CommandID::WINDOW, _T("Undock"));
 		// ドッキングしているシャトルが存在しない場合はこのメニューアイテムを無効化する。
 		if (c == 0)
 			::EnableMenuItem(menu, CommandID::WINDOW, MF_DISABLED | MF_GRAYED);

@@ -6,6 +6,7 @@ struct Label { LPCWSTR label; int value; };
 
 //---------------------------------------------------------------------
 
+#include "Common/Dialog.h"
 #include "Pane.h"
 #include "Shuttle.h"
 #include "ShuttleManager.h"

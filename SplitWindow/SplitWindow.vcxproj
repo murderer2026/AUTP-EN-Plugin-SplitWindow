@@ -118,8 +118,9 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>../../;../../AviUtl/aviutl_exedit_sdk/</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\Murderer\Desktop\SWP\deps</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpplatest</LanguageStandard>
+      <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -131,7 +132,7 @@
       <AdditionalLibraryDirectories>../../</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
-      <Command>copy /B /Y "$(TargetDir)$(TargetFileName)" "C:\AviUtl110_test_psd\Plugins\$(TargetName).aul"</Command>
+      <Command>copy /B /Y "$(TargetDir)$(TargetFileName)" "C:\Users\Murderer\Desktop\AviUtl(EN)\Plugins\SplitWindow.aul"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">

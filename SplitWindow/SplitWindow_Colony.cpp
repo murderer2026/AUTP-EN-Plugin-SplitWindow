@@ -132,7 +132,7 @@ LRESULT CALLBACK colonyProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPara
 			{
 				// Shift キーが押されている場合はコロニーを削除する。
 
-				if (IDYES != ::MessageBox(hwnd, _T("コロニーを削除しますか？"), _T("SplitWindow"), MB_YESNO))
+				if (IDYES != ::MessageBox(hwnd, _T("Do you want to delete this colony?"), _T("SplitWindow"), MB_YESNO))
 					return 0;
 
 				// 何もしないとハブが他のウィンドウの後ろに隠れてしまうので、

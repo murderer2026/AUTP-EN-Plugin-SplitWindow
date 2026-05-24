@@ -9,8 +9,8 @@ HRESULT WINAPI getPrivateProfileName(const MSXML2::IXMLDOMElementPtr& element, L
 	if (hr == S_OK)
 	{
 		if (::lstrcmpW(outValue, L"AviUtl") == 0 ||
-			::lstrcmpW(outValue, L"拡張編集") == 0 ||
-			::lstrcmpW(outValue, L"設定ダイアログ") == 0)
+			::lstrcmpW(outValue, L"Adv.Edit") == 0 ||
+			::lstrcmpW(outValue, L"SettingDialog") == 0)
 		{
 			outValue = L"* " + outValue;
 		}
@@ -41,7 +41,7 @@ HRESULT loadConfig(LPCWSTR fileName, BOOL _import)
 		// 設定ファイルを開く。
 		if (document->load(fileName) == VARIANT_FALSE)
 		{
-			MY_TRACE(_T("%s を開けませんでした\n"), fileName);
+			MY_TRACE(_T("%s was not opened.\n"), fileName);
 
 			return S_FALSE;
 		}
@@ -82,13 +82,13 @@ HRESULT loadConfig(LPCWSTR fileName, BOOL _import)
 		// <floatShuttle> を読み込む。
 		loadFloatShuttle(element);
 
-		MY_TRACE(_T("設定ファイルの読み込みに成功しました\n"));
+		MY_TRACE(_T("The configuration file was successfully loaded.\n"));
 
 		return S_OK;
 	}
 	catch (_com_error& e)
 	{
-		MY_TRACE(_T("設定ファイルの読み込みに失敗しました\n"));
+		MY_TRACE(_T("Failed to load configuration file\n"));
 		MY_TRACE(_T("%s\n"), e.ErrorMessage());
 		return e.Error();
 	}

@@ -1,5 +1,6 @@
 ﻿#include "pch.h"
 #include "ConfigDialog.h"
+#include "Common/Dialog.h"
 
 //---------------------------------------------------------------------
 
@@ -19,9 +20,9 @@ int showConfigDialog(HWND hwnd)
 	::SetDlgItemInt(dialog, IDC_TAB_HEIGHT, g_tabHeight, FALSE);
 	::SetDlgItemInt(dialog, IDC_MENU_BREAK, g_menuBreak, FALSE);
 	HWND hwndTabMode = ::GetDlgItem(dialog, IDC_TAB_MODE);
-	ComboBox_AddString(hwndTabMode, _T("タイトル"));
-	ComboBox_AddString(hwndTabMode, _T("上"));
-	ComboBox_AddString(hwndTabMode, _T("下"));
+	ComboBox_AddString(hwndTabMode, _T("Title"));
+	ComboBox_AddString(hwndTabMode, _T("Top"));
+	ComboBox_AddString(hwndTabMode, _T("Bottom"));
 	ComboBox_SetCurSel(hwndTabMode, g_tabMode);
 	HWND hwndUseTheme = ::GetDlgItem(dialog, IDC_USE_THEME);
 	Button_SetCheck(hwndUseTheme, g_useTheme);

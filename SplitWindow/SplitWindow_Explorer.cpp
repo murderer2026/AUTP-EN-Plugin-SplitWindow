@@ -70,7 +70,8 @@ public:
 
 //---------------------------------------------------------------------
 
-// エクスプローラを内包するウィンドウを作成する。
+// 
+// を内包するウィンドウを作成する。
 HWND createExplorer(LPCTSTR name)
 {
 	MY_TRACE(_T("createExplorer(%s)\n"), name);
@@ -150,7 +151,7 @@ LRESULT CALLBACK explorerProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPa
 			{
 				// Shift キーが押されている場合はエクスプローラを削除する。
 
-				if (IDYES != ::MessageBox(hwnd, _T("エクスプローラを削除しますか？"), _T("SplitWindow"), MB_YESNO))
+				if (IDYES != ::MessageBox(hwnd, _T("Do you want to delete this explorer window?"), _T("SplitWindow"), MB_YESNO))
 					return 0;
 
 				// 何もしないとハブが他のウィンドウの後ろに隠れてしまうので、

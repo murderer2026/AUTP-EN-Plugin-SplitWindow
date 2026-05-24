@@ -18,12 +18,12 @@ void ExEditWindow::init(HWND hwnd)
 	wc.lpfnWndProc = ::DefWindowProc;
 	wc.hInstance = ::GetModuleHandle(_T("exedit.auf"));
 	wc.lpszClassName = _T("AviUtl"); // 「VoiceroidUtil」用。
-	ATOM atom = ::RegisterClass(&wc);
+	ATOM atom = ::RegisterClass(&wc);ShuttlePtr shuttle = g_shuttleManager.getShuttle(L"Playback Window");
 
 	m_dummy = true_CreateWindowExA(
 		WS_EX_LAYERED | WS_EX_TRANSPARENT | WS_EX_TOOLWINDOW,
 		_T("AviUtl"),
-		_T("拡張編集"),
+		_T("Adv.Edit"),
 		WS_VISIBLE | WS_CLIPSIBLINGS | WS_CLIPCHILDREN,
 		0, 0, 0, 0,
 		g_hub, 0, wc.hInstance, 0);

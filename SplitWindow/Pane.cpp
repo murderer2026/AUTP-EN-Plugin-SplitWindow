@@ -136,14 +136,14 @@ void TabControl::changeCurrent()
 
 		if (i == current)
 		{
-			MY_TRACE(_T("%ws を表示します\n"), (BSTR)shuttle->m_name);
+			MY_TRACE(_T("%ws Display\n"), (BSTR)shuttle->m_name);
 
 			::ShowWindow(shuttle->m_hwnd, SW_SHOW);
 			::ShowWindow(shuttle->m_dockContainer->m_hwnd, SW_SHOW);
 		}
 		else
 		{
-			MY_TRACE(_T("%ws を非表示にします\n"), (BSTR)shuttle->m_name);
+			MY_TRACE(_T("%ws Hide\n"), (BSTR)shuttle->m_name);
 
 			::ShowWindow(shuttle->m_hwnd, SW_HIDE);
 			::ShowWindow(shuttle->m_dockContainer->m_hwnd, SW_HIDE);

@@ -35,16 +35,16 @@ void initSystemMenu()
 {
 	HMENU menu = ::GetSystemMenu(g_hub, FALSE);
 	int index = 0;
-	::InsertMenu(menu, index++, MF_BYPOSITION | MF_STRING, CommandID::CREATE_COLONY, _T("コロニーを新規作成"));
-	::InsertMenu(menu, index++, MF_BYPOSITION | MF_STRING, CommandID::CREATE_EXPLORER, _T("エクスプローラを新規作成"));
-	::InsertMenu(menu, index++, MF_BYPOSITION | MF_STRING, CommandID::IMPORT_LAYOUT, _T("レイアウトのインポート"));
-	::InsertMenu(menu, index++, MF_BYPOSITION | MF_STRING, CommandID::EXPORT_LAYOUT, _T("レイアウトのエクスポート"));
-	::InsertMenu(menu, index++, MF_BYPOSITION | MF_STRING, CommandID::SHOW_CONFIG_DIALOG, _T("SplitWindowの設定"));
-	::InsertMenu(menu, index++, MF_BYPOSITION | MF_POPUP, (UINT)g_colonyMenu, _T("コロニー"));
-	::InsertMenu(menu, index++, MF_BYPOSITION | MF_POPUP, (UINT)g_explorerMenu, _T("エクスプローラ"));
+	::InsertMenu(menu, index++, MF_BYPOSITION | MF_STRING, CommandID::CREATE_COLONY, _T("New Colony"));
+	::InsertMenu(menu, index++, MF_BYPOSITION | MF_STRING, CommandID::CREATE_EXPLORER, _T("New Explorer"));
+	::InsertMenu(menu, index++, MF_BYPOSITION | MF_STRING, CommandID::IMPORT_LAYOUT, _T("Import Layout"));
+	::InsertMenu(menu, index++, MF_BYPOSITION | MF_STRING, CommandID::EXPORT_LAYOUT, _T("Export Layout"));
+	::InsertMenu(menu, index++, MF_BYPOSITION | MF_STRING, CommandID::SHOW_CONFIG_DIALOG, _T("SplitWindow Settings"));
+	::InsertMenu(menu, index++, MF_BYPOSITION | MF_POPUP, (UINT)g_colonyMenu, _T("Colony"));
+	::InsertMenu(menu, index++, MF_BYPOSITION | MF_POPUP, (UINT)g_explorerMenu, _T("Explorer"));
 	if (::GetModuleHandle(_T("PSDToolKit.auf")))
-		::InsertMenu(menu, index++, MF_BYPOSITION | MF_STRING, CommandID::SHOW_PSD_TOOL_KIT, _T("PSDToolKit(外部)を表示"));
-	::InsertMenu(menu, index++, MF_BYPOSITION | MF_STRING, CommandID::SHOW_BOUYOMISAN, _T("棒読みさんを表示"));
+		::InsertMenu(menu, index++, MF_BYPOSITION | MF_STRING, CommandID::SHOW_PSD_TOOL_KIT, _T("Show PSDToolKit (External)"));
+	::InsertMenu(menu, index++, MF_BYPOSITION | MF_STRING, CommandID::SHOW_BOUYOMISAN, _T("Show Bouyomisan"));
 	::InsertMenu(menu, index++, MF_BYPOSITION | MF_SEPARATOR, 0, 0);
 }
 
@@ -64,11 +64,11 @@ BOOL importLayout(HWND hwnd)
 	OPENFILENAMEW ofn = { sizeof(ofn) };
 	ofn.hwndOwner = hwnd;
 	ofn.Flags = OFN_FILEMUSTEXIST;
-	ofn.lpstrTitle = L"レイアウトのインポート";
+	ofn.lpstrTitle = L"Import Layout";
 	ofn.lpstrInitialDir = folderName;
 	ofn.lpstrFile = fileName;
 	ofn.nMaxFile = MAX_PATH;
-	ofn.lpstrFilter = L"レイアウトファイル (*.xml)\0*.xml\0" "すべてのファイル (*.*)\0*.*\0";
+	ofn.lpstrFilter = L"Layout Files (*.xml)\0*.xml\0All Files (*.*)\0*.*\0";
 	ofn.lpstrDefExt = L"xml";
 
 	if (!::GetOpenFileNameW(&ofn))
@@ -105,11 +105,11 @@ BOOL exportLayout(HWND hwnd)
 	OPENFILENAMEW ofn = { sizeof(ofn) };
 	ofn.hwndOwner = hwnd;
 	ofn.Flags = OFN_OVERWRITEPROMPT;
-	ofn.lpstrTitle = L"レイアウトのエクスポート";
+	ofn.lpstrTitle = L"Export Layout";
 	ofn.lpstrInitialDir = folderName;
 	ofn.lpstrFile = fileName;
 	ofn.nMaxFile = MAX_PATH;
-	ofn.lpstrFilter = L"レイアウトファイル (*.xml)\0*.xml\0" "すべてのファイル (*.*)\0*.*\0";
+	ofn.lpstrFilter = L"Layout Files (*.xml)\0*.xml\0All Files (*.*)\0*.*\0";
 	ofn.lpstrDefExt = L"xml";
 
 	if (!::GetSaveFileNameW(&ofn))
@@ -127,8 +127,8 @@ void updateMenu()
 {
 	HMENU menu = ::GetMenu(g_hub);
 
-	LPCTSTR text = _T("再生時最大化 OFF");
-	if (g_showPlayer) text = _T("再生時最大化 ON");
+	LPCTSTR text = _T("Maximize on Playback: OFF");
+	if (g_showPlayer) text = _T("Maximize on Playback: ON");
 
 	MENUITEMINFO mii = { sizeof(mii) };
 	mii.fMask = MIIM_STRING;

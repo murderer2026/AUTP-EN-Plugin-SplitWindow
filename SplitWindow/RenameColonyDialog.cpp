@@ -1,6 +1,5 @@
 ﻿#include "pch.h"
 #include "RenameColonyDialog.h"
-
 //---------------------------------------------------------------------
 
 RenameColonyDialog::RenameColonyDialog(HWND hwnd)
@@ -41,7 +40,7 @@ void RenameColonyDialog::onOK()
 		g_shuttleManager.getShuttle(newName))
 	{
 		// メッセージボックスを出す。
-		::MessageBox(*this, _T("名前が重複しています"), _T("SplitWindow"), MB_OK | MB_ICONWARNING);
+		::MessageBox(*this, _T("There is a duplicate name"), _T("SplitWindow"), MB_OK | MB_ICONWARNING);
 
 		return;
 	}

@@ -48,11 +48,11 @@ void initHook()
 
 	if (DetourTransactionCommit() == NO_ERROR)
 	{
-		MY_TRACE(_T("API フックに成功しました\n"));
+		MY_TRACE(_T("API Hook Successful\n"));
 	}
 	else
 	{
-		MY_TRACE(_T("API フックに失敗しました\n"));
+		MY_TRACE(_T("API Hook failed\n"));
 	}
 
 	::SetWindowsHookEx(WH_GETMESSAGE, gmHookProc, g_instance, ::GetCurrentThreadId());
@@ -167,7 +167,7 @@ IMPLEMENT_HOOK_PROC_NULL(HWND, WINAPI, CreateWindowExA, (DWORD exStyle, LPCSTR c
 	}
 
 	// デバッグ用出力。
-//	MY_TRACE(_T("CreateWindowExA(%hs, %hs)\n"), className, windowName);
+MY_TRACE(_T("CreateWindowExA(%hs, %hs)\n"), className, windowName);
 
 	if (::lstrcmpiA(className, "SplitWindow") == 0)
 	{
@@ -207,14 +207,15 @@ IMPLEMENT_HOOK_PROC_NULL(HWND, WINAPI, CreateWindowExA, (DWORD exStyle, LPCSTR c
 			g_shuttleManager.addShuttle(g_aviutlWindow, _T("* AviUtl"), hwnd);
 			::SetProp(g_hub, _T("AviUtlWindow"), hwnd);
 		}
-		else if (::lstrcmpiA(windowName, "拡張編集") == 0)
+		else if (::lstrcmpiA(windowName, "Advanced Editing") == 0 ||
+			::lstrcmpiA(windowName, "Adv.Edit") == 0)
 		{
 			MY_TRACE_STR(windowName);
 
 			hookExEdit();
 
 			// 拡張編集ウィンドウ用のシャトルの初期化。
-			g_shuttleManager.addShuttle(g_exeditWindow, _T("* 拡張編集"), hwnd);
+			g_shuttleManager.addShuttle(g_exeditWindow, _T("* Adv.Edit"), hwnd);
 			::SetProp(g_hub, _T("ExEditWindow"), hwnd);
 		}
 		else if (parent && parent == g_hub)
@@ -226,10 +227,11 @@ IMPLEMENT_HOOK_PROC_NULL(HWND, WINAPI, CreateWindowExA, (DWORD exStyle, LPCSTR c
 			g_shuttleManager.addShuttle(shuttle, windowName, hwnd);
 		}
 	}
-	else if (::lstrcmpiA(windowName, "ExtendedFilter") == 0)
+	else if (::lstrcmpiA(windowName, "Extended Filter") == 0 ||
+		::lstrcmpiA(className, "ExtendedFilterClass") == 0)
 	{
 		// 設定ダイアログ用のシャトルの初期化。
-		g_shuttleManager.addShuttle(g_settingDialog, _T("* 設定ダイアログ"), hwnd);
+		g_shuttleManager.addShuttle(g_settingDialog, _T("* Extended Filter"), hwnd);
 		::SetProp(g_hub, _T("SettingDialog"), hwnd);
 
 		// PSDToolKit ウィンドウ用のシャトルの初期化。
@@ -432,7 +434,7 @@ IMPLEMENT_HOOK_PROC(HWND, WINAPI, FindWindowExA, (HWND parent, HWND childAfter, 
 			ShuttlePtr shuttle = g_shuttleManager.getShuttle(windowName);
 			if (shuttle)
 			{
-				MY_TRACE(_T("%hs を返します\n"), windowName);
+				MY_TRACE(_T("%hs returns\n"), windowName);
 
 				return shuttle->m_hwnd;
 			}
@@ -515,7 +517,7 @@ IMPLEMENT_HOOK_PROC(LONG, WINAPI, SetWindowLongA, (HWND hwnd, int index, LONG ne
 
 		if (shuttle)
 		{
-			MY_TRACE(_T("Shuttle が取得できるウィンドウは HWNDPARENT を変更できません\n"));
+			MY_TRACE(_T("Windows obtained via Shuttle cannot have their HWNDPARENT changed\n"));
 			return 0;
 		}
 	}
@@ -568,7 +570,7 @@ IMPLEMENT_HOOK_PROC_NULL(HWND, WINAPI, color_palette_CreateDialogParamA, (HINSTA
 	::GetWindowText(hwnd, windowName, MAX_PATH);
 	MY_TRACE_TSTR(windowName);
 
-	if (::lstrcmpiA(windowName, "マイパレット") == 0)
+	if (::lstrcmpiA(windowName, "My Palette") == 0)
 	{
 		// マイパレットダイアログ用のシャトルの初期化。
 		ShuttlePtr shuttle(new Shuttle());
@@ -584,7 +586,7 @@ IMPLEMENT_HOOK_PROC_NULL(BOOL, WINAPI, color_palette_ShowWindow, (HWND hwnd, int
 /*
 	if (cmdShow)
 	{
-		ShuttlePtr shuttle = g_shuttleManager.getShuttle(L"マイパレット");
+		ShuttlePtr shuttle = g_shuttleManager.getShuttle(L"My Palette");
 		if (shuttle && shuttle->m_hwnd == hwnd)
 		{
 			MY_TRACE_HEX(shuttle->m_pane);
@@ -677,7 +679,7 @@ UINT __fastcall aviutl_PlayMain(UINT u1, UINT u2, UINT u3, UINT u4, UINT u5, UIN
 
 	if (!g_movieplaymain)
 	{
-		ShuttlePtr shuttle = g_shuttleManager.getShuttle(L"再生ウィンドウ");
+		ShuttlePtr shuttle = g_shuttleManager.getShuttle(L"Playback window");
 		if (shuttle) hwnd = ::GetParent(shuttle->m_hwnd);
 	}
 
@@ -738,7 +740,7 @@ UINT __fastcall aviutl_PlaySub(UINT u1, UINT u2, UINT u3, UINT u4, UINT u5)
 
 	if (!g_movieplaymain)
 	{
-		ShuttlePtr shuttle = g_shuttleManager.getShuttle(L"再生ウィンドウ");
+		ShuttlePtr shuttle = g_shuttleManager.getShuttle(L"Playback window");
 		if (shuttle) hwnd = ::GetParent(shuttle->m_hwnd);
 	}
 
@@ -807,19 +809,19 @@ HWND WINAPI KeyboardHook_GetActiveWindow()
 
 	if (!focus)
 	{
-		MY_TRACE(_T("focus が 0 なので、設定ダイアログを返します\n"));
+		MY_TRACE(_T("If `focus` is 0, it returns the settings dialog.\n"));
 		return g_settingDialog->m_hwnd;
 	}
 
 	if (isAncestor(g_settingDialog->m_hwnd, focus))
 	{
-		MY_TRACE(_T("設定ダイアログを返します\n"));
+		MY_TRACE(_T("Returns the settings dialog.\n"));
 		return g_settingDialog->m_hwnd;
 	}
 
 	if (isAncestor(g_exeditWindow->m_hwnd, focus))
 	{
-		MY_TRACE(_T("拡張編集ウィンドウを返します\n"));
+		MY_TRACE(_T("Returns the ExEdit window.\n"));
 		return g_exeditWindow->m_hwnd;
 	}
 

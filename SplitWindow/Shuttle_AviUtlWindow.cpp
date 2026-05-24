@@ -69,7 +69,7 @@ LRESULT AviUtlWindow::onTargetWndProc(Container* container, HWND hwnd, UINT mess
 			}
 			else
 			{
-				::StringCbCopyA(fileName, sizeof(fileName), "無題");
+				::StringCbCopyA(fileName, sizeof(fileName), "Untitled");
 			}
 #if 1
 			::StringCbCatA(fileName, sizeof(fileName), " - ");

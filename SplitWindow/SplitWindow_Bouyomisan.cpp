@@ -21,7 +21,7 @@ HWND findWindow()
 		// ウィンドウ名をチェックする。
 		TCHAR windowText[MAX_PATH] = {};
 		::GetWindowText(hwnd, windowText, std::size(windowText));
-		if (!_tcsstr(windowText, _T("棒読みさん"))) return TRUE;
+		if (!_tcsstr(windowText, _T("Bouyomisan"))) return TRUE;
 
 		// クラス名をチェックする。
 		TCHAR className[MAX_PATH] = {};
@@ -43,13 +43,13 @@ HWND createHolder()
 /*
 	if (!::GetModuleHandle(_T("Bouyomisan.auf")))
 	{
-		MY_TRACE(_T("Bouyomisan が見つかりませんでした\n"));
+		MY_TRACE(_T("Bouyomisan could not be found\n"));
 
 		return 0;
 	}
 */
 	const LPCTSTR className = _T("SplitWindow.BouyomisanHolder");
-	const LPCTSTR name = _T("棒読みさん");
+	const LPCTSTR name = _T("Bouyomisan");
 
 	WNDCLASS wc = {};
 	wc.style = CS_HREDRAW | CS_VREDRAW | CS_DBLCLKS;
@@ -169,7 +169,7 @@ LRESULT CALLBACK holderProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lPara
 
 					if (g_target)
 					{
-						MY_TRACE(_T("Bouyomisan ウィンドウが見つかりました => 0x%08X\n"), g_target);
+						MY_TRACE(_T("A Bouyomisan window has been found => 0x%08X\n"), g_target);
 
 						DWORD remove = WS_POPUP | WS_CAPTION | WS_THICKFRAME | WS_MINIMIZEBOX | WS_MAXIMIZEBOX | WS_SYSMENU;
 						DWORD add = WS_CHILD;

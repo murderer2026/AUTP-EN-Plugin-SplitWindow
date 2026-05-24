@@ -30,7 +30,7 @@
 
 #import <msxml3.dll>
 
-#include "../../ObjectExplorer/Common/ObjectExplorer.h"
+#include "Common/ObjectExplorer.h"
 #include "AviUtl/aviutl_exedit_sdk/aviutl.hpp"
 #include "AviUtl/aviutl_exedit_sdk/exedit.hpp"
 #include "Common/Tracer.h"
@@ -41,7 +41,7 @@
 #include "Common/Hook.h"
 #include "Common/AviUtlInternal.h"
 #include "Detours.4.0.1/detours.h"
-#pragma comment(lib, "Detours.4.0.1/detours.lib")
+#pragma comment(lib, "C:\\Users\\Murderer\\Desktop\\SWP\\deps\\Detours.4.0.1\\detours.lib")
 
 #pragma comment(linker,"\"/manifestdependency:type='win32' \
 name='Microsoft.Windows.Common-Controls' version='6.0.0.0' \

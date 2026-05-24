@@ -2,6 +2,7 @@
 
 #include "Resource.h"
 #include "SplitWindow.h"
+#include "Common\Dialog.h"
 
 //---------------------------------------------------------------------
 
